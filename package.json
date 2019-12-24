@@ -2,7 +2,7 @@
   "name": "strava-fetch",
   "version": "0.1.0",
   "description": "Fetch procedures for Strava API",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
     "clean": "git clean -d -X",
