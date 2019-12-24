@@ -1,0 +1,35 @@
+{
+  "name": "strava-fetch",
+  "version": "0.1.0",
+  "description": "Fetch procedures for Strava API",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "clean": "git clean -d -X",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build",
+    "posttest": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgolden17/strava-fetch.git"
+  },
+  "keywords": [
+    "Strava",
+    "API",
+    "Fetch"
+  ],
+  "author": "Jonathan Golden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jgolden17/strava-fetch/issues"
+  },
+  "homepage": "https://github.com/jgolden17/strava-fetch#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "babel-preset-amex": "^3.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-amex": "^11.1.0"
+  }
+}
