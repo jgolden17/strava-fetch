@@ -1,4 +1,5 @@
 import queryStrava from './queryStrava';
+import getQueryString from './getQueryString';
 
 /**
  * Get Activity (getActivityById)
@@ -6,12 +7,16 @@ import queryStrava from './queryStrava';
  * Requires activity:read for Everyone and Followers activities.
  * Requires activity:read_all for Only Me activities.
  */
-async function getActivityById(id) {
+function getActivityById({ id, include_all_efforts = false }) {
   if (!id) {
     throw new Error('ID is required by getActivityById');
   }
 
-  return queryStrava({ path: `/activities/${id}` });
+  const query = getQueryString({ include_all_efforts });
+
+  return queryStrava({
+    path: `/activities/${id}${query}`,
+  });
 }
 
 export default getActivityById;

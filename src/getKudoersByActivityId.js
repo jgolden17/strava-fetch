@@ -1,4 +1,5 @@
 import queryStrava from './queryStrava';
+import getQueryString from './getQueryString';
 
 /**
  * List Activity Kudoers (getKudoersByActivityId)
@@ -6,12 +7,14 @@ import queryStrava from './queryStrava';
  * Requires activity:read for Everyone and Followers activities.
  * Requires activity:read_all for Only Me activities.
  */
-function getKudoersByActivityId(id) {
+function getKudoersByActivityId({ id, page, perPage }) {
   if (!id) {
     throw new Error('ID is required by getKudoersByActivityId');
   }
 
-  return queryStrava({ path: `/activities/${id}/kudos` });
+  const query = getQueryString({ page, perPage });
+
+  return queryStrava({ path: `/activities/${id}/kudos${query}` });
 }
 
 export default getKudoersByActivityId;
