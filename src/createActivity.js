@@ -1,17 +1,15 @@
-async function createActivity(body) {
-  const stravaAPI = process.env.STRAVA_API_URL;
-  const accessToken = process.env.STRAVA_ACCESS_TOKEN;
+import queryStrava from './queryStrava';
 
-  const response = await fetch(`${stravaAPI}/activities`, {
-    header: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
+/**
+ * Create an Activity (createActivity)
+ * Creates a manual activity for an athlete, requires activity:write scope.
+ */
+async function createActivity(body) {
+  return queryStrava({
+    path: '/activities',
     method: 'POST',
     body: JSON.stringify(body),
   });
-
-  return response.json();
 }
 
 export default createActivity;

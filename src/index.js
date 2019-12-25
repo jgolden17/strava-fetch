@@ -1,1 +1,1 @@
-export createActivity from './createActivity';
+throw new Error('Procedures should be imported directly from strava-fetch/lib/');
