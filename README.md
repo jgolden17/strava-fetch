@@ -20,7 +20,20 @@ console.log(activity);
 
 #### Create an Activity
 
-##### `createActivity()`
+##### `createActivity(activity)`
+
+```
+{
+	name,
+	type,
+	start_date_local,
+	elapsed_time,
+	description,
+	distance,
+	trainer,
+	commute,
+}
+```
 
 Creates a manual activity for an athlete, requires activity:write scope.
 
@@ -81,6 +94,89 @@ Summit Feature. Returns the zones of a given activity. Requires activity:read fo
 Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities
 
 `PUT /activities/{id}`
+
+### Athletes
+
+#### Get Authenticated Athlete
+
+##### getLoggedInAthlete()
+
+Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation.
+
+`GET /athlete`
+
+#### Get Zones
+
+##### getLoggedInAthleteZones()
+
+Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all.
+
+`GET /athlete/zones`
+
+#### Get Athlete Stats
+
+##### getStats(id, page = 1, perPage = 30)
+
+Returns the activity stats of an athlete.
+
+`GET /athletes/{id}/stats`
+
+#### Update Athlete
+
+##### updateLoggedInAthlete(weight)
+Update the currently authenticated athlete. Requires profile:write scope.
+
+`PUT /athlete`
+
+### Clubs
+
+#### List Club Activities
+
+##### getClubActivitiesById(id, page = 1, perPage = 30)
+
+Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities.
+
+`GET /clubs/{id}/activities`
+
+#### List Club Administrators
+
+##### getClubAdminsById(id, page = 1, perPage = 30)
+
+Returns a list of the administrators of a given club.
+
+`GET /clubs/{id}/admins`
+
+#### Get Club
+
+##### getClubById(id)
+
+Returns a given club using its identifier.
+
+`GET /clubs/{id}`
+
+#### List Club Members
+
+##### getClubMembersById(id, page = 1, perPage = 30)
+
+Returns a list of the athletes who are members of a given club.
+
+`GET /clubs/{id}/members`
+
+#### List Athlete Clubs
+
+##### getLoggedInAthleteClubs(page = 1, perPage = 30)
+
+Returns a list of the clubs whose membership includes the authenticated athlete.
+
+`GET /athlete/clubs`
+
+#### Get Equipment
+
+##### getGearById(id)
+
+Returns an equipment using its identifier.
+
+`GET /gear/{id}`
 
 ## Contributing
 
