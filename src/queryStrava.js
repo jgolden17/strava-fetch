@@ -19,7 +19,13 @@ async function queryStrava({ path, method = 'GET', body = null }) {
     body,
   });
 
-  return response.json();
+  if (response.ok) {
+    return response.json();
+  }
+
+  const errorMessage = `${response.status} (${response.statusText})`;
+
+  throw new Error(errorMessage);
 }
 
 export default queryStrava;
