@@ -1,4 +1,4 @@
-import queryStrava from './queryStrava';
+import queryStrava from '../queryStrava';
 
 /**
  * Update Activity (updateActivityById)

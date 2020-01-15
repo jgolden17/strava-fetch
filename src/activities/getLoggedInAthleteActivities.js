@@ -1,5 +1,5 @@
 import getQueryString from './getQueryString';
-import queryStrava from './queryStrava';
+import queryStrava from '../queryStrava';
 
 /**
  * List Athlete Activities (getLoggedInAthleteActivities)
