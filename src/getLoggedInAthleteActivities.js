@@ -1,4 +1,4 @@
-import { stringify } from 'query-string';
+import getQueryString from './getQueryString';
 import queryStrava from './queryStrava';
 
 /**
@@ -7,21 +7,8 @@ import queryStrava from './queryStrava';
  * Requires activity:read. Only Me activities will be filtered out unless
  * requested by a token with activity:read_all.
  */
-function getLoggedInAthleteActivities({
-  before,
-  after,
-  page,
-  perPage,
-}) {
-  const queryString = stringify({
-    before,
-    after,
-    page,
-    perPage,
-  });
-
-  const query = queryString ? `?${queryString}` : '';
-
+function getLoggedInAthleteActivities(queries) {
+  const query = getQueryString(queries);
   return queryStrava({ path: `/athlete/activities${query}` });
 }
 

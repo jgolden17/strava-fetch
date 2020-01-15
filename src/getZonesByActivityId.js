@@ -6,11 +6,7 @@ import queryStrava from './queryStrava';
  * Requires activity:read for Everyone and Followers activities.
  * Requires activity:read_all for Only Me activities.
  */
-function getZonesByActivityId(id) {
-  if (!id) {
-    throw new Error('ID is required by getZonesByActivityId');
-  }
-
+function getZonesByActivityId({ id }) {
   return queryStrava({ path: `/activities/${id}/zones` });
 }
 

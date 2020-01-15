@@ -6,15 +6,11 @@ import queryStrava from './queryStrava';
 * Requires activity:write. Also requires activity:read_all in order to update
 * Only Me activities
 */
-function updateActivityById(id, body) {
-  if (!id) {
-    throw new Error('ID is required by updateActivityById');
-  }
-
+function updateActivityById({ id, ...activity }) {
   return queryStrava({
     path: `/activities/${id}`,
     method: 'PUT',
-    body: JSON.stringify(body),
+    body: JSON.stringify(activity),
   });
 }
 

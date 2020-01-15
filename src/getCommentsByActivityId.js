@@ -7,13 +7,8 @@ import getQueryString from './getQueryString';
  * Requires activity:read for Everyone and Followers activities.
  * Requires activity:read_all for Only Me activities.
  */
-function getCommentsByActivityId({ id, page, perPage }) {
-  if (!id) {
-    throw new Error('ID is required by getCommentsByActivityId');
-  }
-
-  const query = getQueryString({ page, perPage });
-
+function getCommentsByActivityId({ id, ...queries }) {
+  const query = getQueryString(queries);
   return queryStrava({ path: `/activities/${id}/comments${query}` });
 }
 

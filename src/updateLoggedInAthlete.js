@@ -5,11 +5,11 @@ import queryStrava from './queryStrava';
  * Update the currently authenticated athlete.
  * Requires profile:write scope.
  */
-function updateLoggedInAthlete(body) {
+function updateLoggedInAthlete(athlete) {
   return queryStrava({
     path: '/athlete',
     method: 'PUT',
-    body: JSON.stringify(body),
+    body: JSON.stringify(athlete),
   });
 }
 

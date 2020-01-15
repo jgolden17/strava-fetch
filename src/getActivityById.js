@@ -7,12 +7,8 @@ import getQueryString from './getQueryString';
  * Requires activity:read for Everyone and Followers activities.
  * Requires activity:read_all for Only Me activities.
  */
-function getActivityById({ id, include_all_efforts = false }) {
-  if (!id) {
-    throw new Error('ID is required by getActivityById');
-  }
-
-  const query = getQueryString({ include_all_efforts });
+function getActivityById({ id, ...queries }) {
+  const query = getQueryString(queries);
 
   return queryStrava({
     path: `/activities/${id}${query}`,
