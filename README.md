@@ -1,7 +1,7 @@
 # Strava Fetch
 > Fetch procedures for Strava API
 
-Unofficial Strava API written in JavaScript.
+An unofficial consumer for the official [Strava API](http://developers.strava.com/docs/reference/) using `fetch`.
 
 ## Usage
 

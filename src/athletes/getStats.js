@@ -1,5 +1,5 @@
 import queryStrava from '../queryStrava';
-import getQueryString from './getQueryString';
+import getQueryString from '../getQueryString';
 
 /**
  * Get Athlete Stats (getStats)

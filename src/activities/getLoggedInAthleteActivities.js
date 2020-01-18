@@ -1,4 +1,4 @@
-import getQueryString from './getQueryString';
+import getQueryString from '../getQueryString';
 import queryStrava from '../queryStrava';
 
 /**

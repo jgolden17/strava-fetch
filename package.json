@@ -1,17 +1,22 @@
 {
   "name": "strava-fetch",
-  "version": "0.1.0",
+  "version": "0.1.0-0",
   "description": "Fetch procedures for Strava API",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --ignore \"src/__mocks__/*.js\"",
-    "clean": "git clean -d -X",
+    "clean": "rimraf lib && git clean -fdq -e src/",
     "test": "jest",
-    "prepublish": "npm run build",
-    "posttest": "npm run lint"
+    "prepublish": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
+    "posttest": "npm run lint",
+    "postpublish": "npm run clean",
+    "postpack": "npm run postpublish"
   },
   "jest": {
-    "preset": "amex-jest-preset"
+    "preset": "amex-jest-preset",
+    "setupFiles": [
+      "./test-setup.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -32,10 +37,13 @@
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "amex-jest-preset": "^5.0.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-amex": "^3.3.0",
     "eslint": "^6.8.0",
     "eslint-config-amex": "^11.1.0",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "jest-fetch-mock": "^3.0.1",
+    "rimraf": "^3.0.0"
   },
   "dependencies": {
     "query-string": "^6.9.0"
