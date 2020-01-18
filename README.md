@@ -3,180 +3,158 @@
 
 An unofficial consumer for the official [Strava API](http://developers.strava.com/docs/reference/) using `fetch`.
 
+## Table of Contents
+- [Install](#install)
+- [Usage](#usage)
+- [Security](#security)
+- [API](#api)
+	- [Authorization](#authorization)
+	- [Activities](#activities)
+	- [Athletes](#athletes)
+	- [Clubs](#clubs)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Install
+
+```bash
+npm i strava-fetch
+```
+
 ## Usage
 
-```js
-import createActivity from 'strava-fetch/lib/createActivity';
+Unless otherwise stated, each procedure takes an object of key-value pairs as its argument, the signature of which conforms to [Strava's API Reference](http://developers.strava.com/docs/reference/) for each endpoint.
 
-const activity = await getActivityById('1234');
+For example, given Strava's `GET /activities/{id}` endpoint which takes the path parameter `id` and the query parameter `include_all_efforts`, `getActivities` would take the following form:
+
+```js
+import getActivityById from 'strava-fetch/activities/getActivityById';
+
+const activity = await getActivity({
+  id: '1234',
+  include_all_efforts: true,
+});
 
 console.log(activity);
 
 ```
 
+This project does not intend to exhaustively document the Strava API itself.  For more complete documentation see [Strava Developers](http://developers.strava.com/docs/reference/).
+
+## Security
+
+### Environment Variables
+
+Some API procedures require properties that may be derived from environment variables rather than being passed as arguments.  In the case that an environment variable is defined, the coresponding function argument property may be considered as optional, otherwise it is required.  A list of property-variable pairs is provided below.
+
+| API Property | Environment Variable |
+|---------------|-------------------|
+| `client_id`   | `STRAVA_CLIENT_ID`|
+| `client_secret`   | `STRAVA_CLIENT_SECRET`|
+| `redirect_uri` | `STRAVA_REDIRECT_URI` |
+| `scrope` | `STRAVA_SCOPE` |
+
 ## API
 
-### Activities
+### Authorization
 
-#### Create an Activity
+#### Request Authorization `/oauth/getAuthorization`
+Directs the user to Strava's authorization UI at `http://www.strava.com/oauth/authorize`.
 
-##### `createActivity(activity)`
+The funtion takes the following argument signature:
 
-```
+```js
 {
-	name,
-	type,
-	start_date_local,
-	elapsed_time,
-	description,
-	distance,
-	trainer,
-	commute,
+	/** @type {String} Your app's Client ID - Optional† */
+	client_id,
+
+  	/** @type {String} URL Strava should redirect the user to - Optional† */
+  	redirect_uri,
+  	
+  	/** @type {String} Comma delineated list of scopes requested by the app - Optional† */
+  	scope,
 }
 ```
 
-Creates a manual activity for an athlete, requires activity:write scope.
+Once the user has granted/declined access priviledges, Strava will redirect the user to the URL provided to the `redirect_uri` property.
 
-`POST /activities`
+† If any property is not provided, the function will attempt to resolve it from the property's corresponding environment variable. See the [Security](#security) section.
 
-#### Get Activity
+#### Exchange Authorization Code for Access Token `/oauth/exchangeToken`
 
-##### `getActivityById(id)`
+Exchanges the authorization code provided by Strava's authorization UI for an API access code.
 
-Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+The function takes the following argument signature:
 
-`GET /activities/{id}`
+```js
+{
+	/** @type {String} The code returned as a query to the redirect_uri - Required */
+	code,
+	
+	/** @type {String} Your app's Client ID - Optional† */
+	client_id,
+	
+	/** @type {String} Your app's Client Secret - Optional† */
+	client_secret,
+}
+```
 
-#### List Activity Comments
+† If any property is not provided, the function will attempt to resolve it from the property's corresponding environment variable. See the [Security](#security) section.
 
-##### `getCommentsByActivityId(id)`
 
-Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+### Activities
 
-`GET /activities/{id}/comments`
+#### Create an Activity `/activities/createActivity`
+Creates a manual activity for an athlete.  
 
-#### List Activity Kudoers
+#### Get Activity `/activities/getActivityById`
+Returns the given activity that is owned by the authenticated athlete.  
 
-##### `getKudoersByActivityId(id)`
+#### List Activity Comments `/activities/getCommentsByActivityId`
+Returns the comments on the given activity.  
 
-Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+#### List Activity Kudoers `/activities/getKudoersByActivityId`
+Returns the athletes who kudoed an activity identified by an identifier.  
 
-`GET /activities/{id}/kudos`
+#### List Activity Laps `/activities/getLapsByActivityId`
+Returns the laps of an activity identified by an identifier.
 
-#### List Activity Laps
+#### List Athlete Activities `/activities/getLoggedInAthleteActivities`
+Returns the activities of an athlete for a specific identifier.
 
-##### `getLapsByActivityId(id)`
+#### Get Activity Zones `/activities/getZonesByActivityId`
+Summit Feature. Returns the zones of a given activity.
 
-Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+#### Update Activity `/activities/updateActivityById`
+Updates the given activity that is owned by the authenticated athlete.
 
-`GET /activities/{id}/laps`
-
-#### List Athlete Activities
-
-##### `getLoggedInAthleteActivities()`
-
-Returns the activities of an athlete for a specific identifier. Requires activity:read. Only Me activities will be filtered out unless requested by a token with activity:read_all.
-
-`GET /athlete/activities`
-
-#### Get Activity Zones
-
-##### `getZonesByActivityId(id)`
-
-Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
-
-`GET /activities/{id}/zones`
-
-#### Update Activity
-
-##### `updateActivityById(id)`
-
-Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities
-
-`PUT /activities/{id}`
 
 ### Athletes
 
-#### Get Authenticated Athlete
+#### Get Authenticated Athlete `/athletes/getLoggedInAthlete`
+Returns the currently authenticated athlete.
 
-##### getLoggedInAthlete()
+#### Get Zones `/athletes/getLoggedInAthleteZones`
+Returns the the authenticated athlete's heart rate and power zones.
 
-Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation.
-
-`GET /athlete`
-
-#### Get Zones
-
-##### getLoggedInAthleteZones()
-
-Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all.
-
-`GET /athlete/zones`
-
-#### Get Athlete Stats
-
-##### getStats(id, page = 1, perPage = 30)
-
+#### Get Athlete Stats `/athletes/getStats`
 Returns the activity stats of an athlete.
 
-`GET /athletes/{id}/stats`
+#### Get Zones `/athletes/getLoggedInAthleteZones`
+Returns the the authenticated athlete's heart rate and power zones.
 
-#### Update Athlete
+#### Update Athlete `/athletes/updateLoggedInAthlete`
+Update the currently authenticated athlete.
 
-##### updateLoggedInAthlete(weight)
-Update the currently authenticated athlete. Requires profile:write scope.
-
-`PUT /athlete`
 
 ### Clubs
 
-#### List Club Activities
+#### List Club Activities `/clubs/getClubActivitiesById`
+Retrieve recent activities from members of a specific club.
 
-##### getClubActivitiesById(id, page = 1, perPage = 30)
-
-Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities.
-
-`GET /clubs/{id}/activities`
-
-#### List Club Administrators
-
-##### getClubAdminsById(id, page = 1, perPage = 30)
-
+#### List Club Administrators. `/clubs/getClubAdminsById`
 Returns a list of the administrators of a given club.
 
-`GET /clubs/{id}/admins`
-
-#### Get Club
-
-##### getClubById(id)
-
-Returns a given club using its identifier.
-
-`GET /clubs/{id}`
-
-#### List Club Members
-
-##### getClubMembersById(id, page = 1, perPage = 30)
-
-Returns a list of the athletes who are members of a given club.
-
-`GET /clubs/{id}/members`
-
-#### List Athlete Clubs
-
-##### getLoggedInAthleteClubs(page = 1, perPage = 30)
-
-Returns a list of the clubs whose membership includes the authenticated athlete.
-
-`GET /athlete/clubs`
-
-#### Get Equipment
-
-##### getGearById(id)
-
-Returns an equipment using its identifier.
-
-`GET /gear/{id}`
 
 ## Contributing
 
