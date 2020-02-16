@@ -1,0 +1,8 @@
+deploy:
+  provider: npm
+  email: jongolden17@gmail.com
+  api_key:
+    secure: dmEG6fIz2469vmQJxD29HhyoW4dKoWrevVFD+Go0+kPkgTH60ksjLx0cuAncZZZMt1jAtb2ZYxxvCbNZZBylfV9WoXrNFcqZRzbNiyj74efRD94cNEfVQsPc/pHoIdB00nuGvCGNL9aLJkSLqiog/+mXMuEpEUSTVDQh0HPQKnGFr42qXg5Z5F2Dx7Xv52DRjt2k8dZNj5Ji4SdgxH3+6kOCSps/F4AHAT6PjlgGJtMn2UF7Z4gf06TZC1W6wM3NBXGLp90fY+OBJXjaXaMo+R5vY4klNA09673uCKEsyh4BpicMaqg4Pe1PJDXR5d7ikf/PXGC6NJWax1JulEZLi1C8GxLwnHuFICqhdR2kcE3cmNG7pN5xYBPj5Dofdm8ttC9OqHbnBwmpsIXLE1aLSMNORSTt6W7vmODYm5CoBtMHWQNUMPE9EKmwkwNzTKXelkHdFqzKa0G+FxshVw0tFcUTC4UrA00dQK0HGnFQewFbuqwYFfoqfxrz0VZhI+aEulzdx6IiMiR/Q5dlc+VU6K345uVZdk6c4t1cXO4C/sinTn2BcwKfSF3dnpN2Chm5+UiNblrVvhSkbEr/MYtxdM5WULbEoB9L5XMpIvtEfSseqF77NKZdWIzyj/NkMerM8QvVQyQGOjZntXDAJ+kwR7BV7QqOUnHlKC+LpraT6tQ=
+  on:
+    tags: true
+    repo: jgolden17/strava-fetch
