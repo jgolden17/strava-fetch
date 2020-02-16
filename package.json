@@ -8,7 +8,6 @@
     "clean": "rimraf lib && git clean -fdq -e src/",
     "test": "echo \"no tests yet\"",
     "prepublish": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
-    "posttest": "npm run lint",
     "postpublish": "npm run clean",
     "postpack": "npm run postpublish"
   },
