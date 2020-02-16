@@ -6,17 +6,14 @@
   "scripts": {
     "build": "babel src --out-dir lib --ignore \"src/__mocks__/*.js\"",
     "clean": "rimraf lib && git clean -fdq -e src/",
-    "test": "jest",
+    "test": "echo \"no tests yet\"",
     "prepublish": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
     "posttest": "npm run lint",
     "postpublish": "npm run clean",
     "postpack": "npm run postpublish"
   },
   "jest": {
-    "preset": "amex-jest-preset",
-    "setupFiles": [
-      "./test-setup.js"
-    ]
+    "preset": "amex-jest-preset"
   },
   "repository": {
     "type": "git",
