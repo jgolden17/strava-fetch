@@ -1,4 +1,4 @@
-import { getAccessToken } from './oath/AccessToken';
+import { getAccessToken } from './oauth/AccessToken';
 
 async function queryStrava({ path, method = 'GET', body = null }) {
   const stravaAPI = process.env.STRAVA_API_URL;

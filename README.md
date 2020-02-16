@@ -58,8 +58,9 @@ Some API procedures require properties that may be derived from environment vari
 
 ### Authorization
 
-#### Request Authorization `/oauth/getAuthorization`
-Directs the user to Strava's authorization UI at `http://www.strava.com/oauth/authorize`.
+#### Request Authorization `/oauth/getAuthorizationUrl`
+
+Returns the URL of Strava's OAuth page - `http://www.strava.com/oauth/authorize` - where the user will be prompted to give consent to the requesting application.
 
 The funtion takes the following argument signature:
 
@@ -76,9 +77,15 @@ The funtion takes the following argument signature:
 }
 ```
 
+The return of this function should be used to set the client URL.
+
+```
+window.location = getAuthorizationUrl();
+```
+
 Once the user has granted/declined access priviledges, Strava will redirect the user to the URL provided to the `redirect_uri` property.
 
-† If any property is not provided, the function will attempt to resolve it from the property's corresponding environment variable. See the [Security](#security) section.
+† If any optional property is not provided, the function will attempt to resolve it from the property's corresponding environment variable. See the [Security](#security) section.
 
 #### Exchange Authorization Code for Access Token `/oauth/exchangeToken`
 
