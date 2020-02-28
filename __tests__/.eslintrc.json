@@ -1,0 +1,6 @@
+{
+  "extends": ["amex"],
+  "rules": {
+    "camelcase": "off"
+  }
+}

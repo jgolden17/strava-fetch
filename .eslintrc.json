@@ -1,6 +1,3 @@
 {
-  "extends": ["amex"],
-  "rules": {
-    "camelcase": "off"
-  }
+  "extends": ["amex/test"]
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir lib --ignore \"src/__mocks__/*.js\"",
     "clean": "rimraf lib && git clean -fdq -e src/",
-    "test": "echo \"no tests yet\"",
+    "test": "jest",
     "prepublish": "npm run build && cp -r ./lib/* . && rm -rf ./lib",
     "postpublish": "npm run clean",
     "postpack": "npm run postpublish"

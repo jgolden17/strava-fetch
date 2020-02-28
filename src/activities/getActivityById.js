@@ -10,9 +10,7 @@ import getQueryString from '../getQueryString';
 function getActivityById({ id, ...queries }) {
   const query = getQueryString(queries);
 
-  return queryStrava({
-    path: `/activities/${id}${query}`,
-  });
+  return queryStrava({ path: `/activities/${id}${query}` });
 }
 
 export default getActivityById;
