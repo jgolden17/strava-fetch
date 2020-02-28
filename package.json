@@ -20,7 +20,10 @@
         "lines": 25.45,
         "statements": 25.45
       }
-    }
+    },
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}"
+    ]
   },
   "repository": {
     "type": "git",
