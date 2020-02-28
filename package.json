@@ -12,7 +12,15 @@
     "postpack": "npm run postpublish"
   },
   "jest": {
-    "preset": "amex-jest-preset"
+    "preset": "amex-jest-preset",
+    "coverageThreshold": {
+      "global": {
+        "branches": 4,
+        "functions": 39.13,
+        "lines": 25.45,
+        "statements": 25.45
+      }
+    }
   },
   "repository": {
     "type": "git",
